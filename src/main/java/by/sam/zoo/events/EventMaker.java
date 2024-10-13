@@ -11,16 +11,16 @@ public class EventMaker {
             if (i <= 1000) {
                 int random = (int) (Math.random() * 100);
                 if (random >= 0 && random <= 10) {
-                    System.out.println(i);
+                    System.out.println("День " + i);
                     sleepEvent(t);
                 } else if (random > 10 && random <= 30) {
-                    System.out.println(i);
+                    System.out.println("День " + i);
                     eatGazel(t);
                 } else if (random > 30 && random <= 50) {
-                    System.out.println(i);
+                    System.out.println("День " + i);
                     drinkWater(t);
                 } else if (random > 50 && random <= 100) {
-                    System.out.println(i);
+                    System.out.println("День " + i);
                     attackHunter(t);
                 }
                 System.out.println("Здоровье " + t.getHealth() + " Выносливость " + t.getStamina());
@@ -31,14 +31,27 @@ public class EventMaker {
 
     }
 
-    // 1.тигр поспал (50%)
-    private void sleepEvent(Tiger t) {
+    private void checkHealth100 (Tiger t) {
+        int health = t.getHealth();
+        if (health > 100) {
+            health = 100;
+        }
+        t.setHealth(health);
+    }
+
+    private void checkStamina100 (Tiger t) {
         int stamina = t.getStamina();
-        stamina = stamina + (int) (10 * t.getAddStaminaMod());
         if (stamina > 100) {
             stamina = 100;
         }
         t.setStamina(stamina);
+    }
+
+    // 1.тигр поспал (50%)
+    private void sleepEvent(Tiger t) {
+        int stamina = t.getStamina();
+        stamina = stamina + (int) (10 * t.getAddStaminaMod());
+        checkStamina100(t);
         System.out.println("Тигр поспал! +" + (int) (10 * t.getAddStaminaMod()) + " к выносливости.");
     }
 
@@ -55,12 +68,8 @@ public class EventMaker {
         } else tempStamina = (int) (5 * t.getSubStaminaMod());
 
         health = health + (int) (10 * t.getAddHealthMod());
-        if (health > 100) {
-            health = 100;
-        }
-
+        checkHealth100(t);
         t.setStamina(stamina);
-        t.setHealth(health);
         System.out.println("Тигр догнал и съел газель! +" + (int) (10 * t.getAddHealthMod()) + " к здоровью; -" + tempStamina + " к выносливости.");
     }
 
@@ -68,10 +77,7 @@ public class EventMaker {
     private void drinkWater(Tiger t) {
         int stamina = t.getStamina();
         stamina = stamina + (int) (7 * t.getAddHealthMod());
-        if (stamina > 100) {
-            stamina = 100;
-        }
-        t.setStamina(stamina);
+        checkStamina100(t);
         System.out.println("Тигр попил! +" + (int) (7 * t.getAddHealthMod()) + " к выносливости.");
     }
 
