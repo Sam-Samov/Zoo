@@ -8,8 +8,8 @@ import java.util.Arrays;
 public class _Main {
     public static void main(String[] args) {
     Tiger tiger = new Tiger();
-        EventMaker eventMaker = new EventMaker();
-        eventMaker.startSimulation(tiger);
+    EventMaker eventMaker = new EventMaker();
+    eventMaker.startSimulation(tiger);
 
     }
 }
