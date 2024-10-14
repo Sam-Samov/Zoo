@@ -26,6 +26,11 @@ public class EventMaker {
                 System.out.println("Здоровье " + t.getHealth() + " Выносливость " + t.getStamina());
                 System.out.println();
                 i++;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
 
